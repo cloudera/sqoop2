@@ -385,6 +385,7 @@ limitations under the License.
                   <exclude>**.patch</exclude>
                   <exclude>cloudera/*</exclude>
                   <exclude>*buildinfo</exclude>
+                  <exclude>**/*.patch</exclude>
                 </excludes>
               </configuration>
             </execution>
