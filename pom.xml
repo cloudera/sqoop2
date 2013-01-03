@@ -20,9 +20,9 @@ limitations under the License.
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.apache</groupId>
-    <artifactId>apache</artifactId>
-    <version>9</version>
+    <groupId>com.cloudera.cdh</groupId>
+    <artifactId>cdh-root</artifactId>
+    <version>4.2.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache</groupId>
@@ -87,6 +87,46 @@ limitations under the License.
     <url>https://git-wip-us.apache.org/repos/asf?p=sqoop.git</url>
   </scm>
 
+  <repositories>
+    <repository>
+      <id>cdh.releases.repo</id>
+      <url>https://repository.cloudera.com/content/groups/cdh-releases-rcs</url>
+      <name>CDH Releases Repository</name>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>cdh.snapshots.repo</id>
+      <url>https://repository.cloudera.com/content/repositories/snapshots</url>
+      <name>CDH Snapshots Repository</name>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>datanucleus</id>
+      <url>http://www.datanucleus.org/downloads/maven2</url>
+      <name>Datanucleus</name>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>java.net repository</id>
+      <url>http://download.java.net/maven/2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>cdh.thirdparty.repo</id>
+      <url>https://repository.cloudera.com/content/repositories/third-party</url>
+      <name>Cloudera Third Party Repository</name>
+      <snapshots><enabled>false</enabled></snapshots>
+    </repository>
+  </repositories>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compile.source>1.6</maven.compile.source>
@@ -95,7 +135,7 @@ limitations under the License.
     <commons-lang.version>2.5</commons-lang.version>
     <derby.version>10.8.2.2</derby.version>
     <hadoop.1.version>1.0.3</hadoop.1.version>
-    <hadoop.2.version>2.0.2-alpha</hadoop.2.version>
+    <hadoop.2.version>${cdh.hadoop.version}</hadoop.2.version>
     <guava.version>11.0.2</guava.version>
     <json-simple.version>1.1</json-simple.version>
     <junit.version>4.9</junit.version>
