@@ -343,6 +343,8 @@ limitations under the License.
                   <exclude>*.log</exclude>
                   <exclude>**/nb-configuration.xml</exclude>
                   <exclude>**.patch</exclude>
+                  <exclude>cloudera/*</exclude>
+                  <exclude>*buildinfo</exclude>
                 </excludes>
               </configuration>
             </execution>
