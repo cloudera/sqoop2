@@ -40,8 +40,8 @@ public class GenericJdbcExportLoader extends Loader<ConnectionConfiguration, Exp
         GenericJdbcConnectorConstants.CONNECTOR_JDBC_USERNAME);
     String password = context.getString(
         GenericJdbcConnectorConstants.CONNECTOR_JDBC_PASSWORD);
-    GenericJdbcExecutor executor = new GenericJdbcExecutor(
-        driver, url, username, password);
+    GenericJdbcExecutor executor = new GenericJdbcExecutor(driver, url, username, password);
+    executor.setAutoCommit(false);
 
     String sql = context.getString(
         GenericJdbcConnectorConstants.CONNECTOR_JDBC_DATA_SQL);
