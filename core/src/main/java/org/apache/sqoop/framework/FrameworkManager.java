@@ -525,7 +525,7 @@ public final class FrameworkManager {
     Repository repository = RepositoryManager.getInstance().getRepository();
     MSubmission submission = repository.findSubmissionLastForJob(jobId);
 
-    if(!submission.getStatus().isRunning()) {
+    if(submission == null || !submission.getStatus().isRunning()) {
       throw new SqoopException(FrameworkError.FRAMEWORK_0003,
         "Job with id " + jobId + " is not running");
     }
