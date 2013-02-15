@@ -190,17 +190,24 @@ public class TestImportPartitioner extends TestCase {
 
   public void testNumericEvenPartition() throws Exception {
     MutableContext context = new MutableMapContext();
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNNAME, "ICOL");
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNTYPE, String.valueOf(Types.NUMERIC));
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MINVALUE, String.valueOf(START));
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MAXVALUE, String.valueOf(START + NUMBER_OF_ROWS - 1));
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNNAME,
+        "ICOL");
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNTYPE,
+        String.valueOf(Types.NUMERIC));
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MINVALUE,
+        String.valueOf(START));
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MAXVALUE,
+        String.valueOf(START + NUMBER_OF_ROWS - 1));
 
     ConnectionConfiguration connConf = new ConnectionConfiguration();
     ImportJobConfiguration jobConf = new ImportJobConfiguration();
 
     Partitioner partitioner = new GenericJdbcImportPartitioner();
-    PartitionerContext partitionerContext = new PartitionerContext(context, 5);
-    List<Partition> partitions = partitioner.getPartitions(partitionerContext, connConf, jobConf);
+    List<Partition> partitions = partitioner.getPartitions(context, 5, connConf, jobConf);
 
     verifyResult(partitions, new String[] {
         "-5 <= ICOL AND ICOL < -3",
@@ -213,17 +220,24 @@ public class TestImportPartitioner extends TestCase {
 
   public void testNumericUnevenPartition() throws Exception {
     MutableContext context = new MutableMapContext();
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNNAME, "DCOL");
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNTYPE, String.valueOf(Types.NUMERIC));
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MINVALUE, String.valueOf(new BigDecimal(START)));
-    context.setString(GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MAXVALUE, String.valueOf(new BigDecimal(START + NUMBER_OF_ROWS - 1)));
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNNAME,
+        "DCOL");
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_COLUMNTYPE,
+        String.valueOf(Types.NUMERIC));
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MINVALUE,
+        String.valueOf(START));
+    context.setString(
+        GenericJdbcConnectorConstants.CONNECTOR_JDBC_PARTITION_MAXVALUE,
+        String.valueOf((START + NUMBER_OF_ROWS - 1)));
 
     ConnectionConfiguration connConf = new ConnectionConfiguration();
     ImportJobConfiguration jobConf = new ImportJobConfiguration();
 
     Partitioner partitioner = new GenericJdbcImportPartitioner();
-    PartitionerContext partitionerContext = new PartitionerContext(context, 3);
-    List<Partition> partitions = partitioner.getPartitions(partitionerContext, connConf, jobConf);
+    List<Partition> partitions = partitioner.getPartitions(context, 3, connConf, jobConf);
 
     verifyResult(partitions, new String[]{
       "-5 <= DCOL AND DCOL < -2",
