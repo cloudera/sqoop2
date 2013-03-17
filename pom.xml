@@ -131,6 +131,7 @@ limitations under the License.
   </repositories>
   
   <properties>
+    <javaVersion>1.6</javaVersion>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compile.source>1.6</maven.compile.source>
     <maven.compile.target>1.6</maven.compile.target>
@@ -376,9 +377,52 @@ limitations under the License.
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <inherited>false</inherited>
+          <configuration>
+            <rules>
+              <requireMavenVersion>
+                <version>[3.0.0,)</version>
+              </requireMavenVersion>
+              <requireJavaVersion>
+                <version>[${javaVersion}.0,${javaVersion}.1000}]</version>
+              </requireJavaVersion>
+            </rules>
+          </configuration>
+          <executions>
+            <execution>
+              <id>clean</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <phase>pre-clean</phase>
+            </execution>
+            <execution>
+              <id>default</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <phase>validate</phase>
+            </execution>
+            <execution>
+              <id>site</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <phase>pre-site</phase>
+            </execution>
+        </executions>
+      </plugin>
     </plugins>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>1.0</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
