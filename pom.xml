@@ -673,6 +673,14 @@ limitations under the License.
       </roles>
     </developer>
     <developer>
+      <id>hshreedharan</id>
+      <name>Hari Shreedharan</name>
+      <organization>Cloudera</organization>
+      <roles>
+        <role>Committer</role>
+      </roles>
+    </developer>
+    <developer>
       <id>jarcec</id>
       <name>Jaroslav Cecho</name>
       <organization>Cloudera</organization>
@@ -717,7 +725,7 @@ limitations under the License.
         <role>PMC Member</role>
       </roles>
     </developer>
-     <developer>
+    <developer>
       <id>posix4e</id>
       <name>Alex Newman</name>
       <organization>Opower</organization>
@@ -741,6 +749,14 @@ limitations under the License.
       <roles>
         <role>Committer</role>
         <role>PMC Member</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>venkatnrangan</id>
+      <name>Venkat Ranganathan</name>
+      <organization>Hortonworks</organization>
+      <roles>
+        <role>Committer</role>
       </roles>
     </developer>
   </developers>
