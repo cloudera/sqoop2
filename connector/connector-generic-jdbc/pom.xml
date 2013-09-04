@@ -24,7 +24,7 @@ limitations under the License.
   <parent>
     <groupId>org.apache.sqoop</groupId>
     <artifactId>connector</artifactId>
-    <version>1.99.1-cdh4.3.1</version>
+    <version>1.99.1-cdh4.3.2</version>
   </parent>
 
   <groupId>org.apache.sqoop.connector</groupId>
