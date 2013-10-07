@@ -24,7 +24,7 @@ limitations under the License.
   <parent>
     <groupId>org.apache.sqoop</groupId>
     <artifactId>repository</artifactId>
-    <version>1.99.2-cdh5.0.0-beta-1-SNAPSHOT</version>
+    <version>1.99.2-cdh5.0.0-beta-1</version>
   </parent>
 
   <groupId>org.apache.sqoop.repository</groupId>
