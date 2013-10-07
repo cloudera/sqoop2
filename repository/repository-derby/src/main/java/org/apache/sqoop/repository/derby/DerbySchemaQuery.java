@@ -218,7 +218,7 @@ public final class DerbySchemaQuery {
       + COLUMN_SQC_ID + " BIGINT GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY, "
       + COLUMN_SQC_NAME + " VARCHAR(64), "
       + COLUMN_SQC_CLASS + " VARCHAR(255), "
-      + COLUMN_SQC_VERSION + " VARCHAR(25) "
+      + COLUMN_SQC_VERSION + " VARCHAR(50) "
       + ")";
 
   // DDL: Create table SQ_FORM
