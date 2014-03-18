@@ -167,6 +167,20 @@ public class JdbcRepository extends Repository {
           // For now, use the "string" versions itself - later we should
           // probably include a build number or something that is
           // monotonically increasing.
+
+          // CDH-18073
+          if("1.99.3-cdh5.0.0-beta-2".equals(result.getVersion()) &&
+              (
+               "1.99.3-cdh5.0.0-SNAPSHOT".equals(mConnector.getVersion()) ||
+               "1.99.3-cdh5.0.0".equals(mConnector.getVersion())
+              )
+            ) {
+            if (autoUpgrade) {
+              upgradeConnector(result, mConnector);
+              return mConnector;
+            }
+          }
+
           if (result.getUniqueName().equals(mConnector.getUniqueName()) &&
             mConnector.getVersion().compareTo(result.getVersion()) > 0) {
             if (autoUpgrade) {
