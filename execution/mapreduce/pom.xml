@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>org.apache.sqoop</groupId>
     <artifactId>execution</artifactId>
-    <version>1.99.3-cdh5.0.4</version>
+    <version>1.99.3-cdh5.0.5-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.sqoop.execution</groupId>
