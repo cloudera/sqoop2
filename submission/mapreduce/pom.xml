@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <groupId>org.apache.sqoop</groupId>
     <artifactId>submission</artifactId>
-    <version>1.99.3-cdh5.2.1</version>
+    <version>1.99.3-cdh5.2.2-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.sqoop.submission</groupId>
