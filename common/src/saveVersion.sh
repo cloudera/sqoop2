@@ -34,7 +34,10 @@ if [ -e "$outputFile" ]; then
 fi
 
 # Create version annotation
-if [ -d .svn ]; then
+if [ -n "${COMPONENT_HASH}" ]; then
+  revision="${COMPONENT_HASH}"
+  url="http://github.com/cloudera/sqoop2"
+elif [ -d .svn ]; then
   revision=`svn info | sed -n -e 's/Last Changed Rev: \(.*\)/\1/p'`
   url=`svn info | sed -n -e 's/URL: \(.*\)/\1/p'`
 elif [ -d ../.git ]; then
