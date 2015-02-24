@@ -36,7 +36,6 @@ import static org.apache.sqoop.repository.derby.DerbySchemaConstants.*;
 // enhancing this code
 public final class DerbySchemaUpgradeQuery {
 
-
   // DDL: Increased size of SQ_CONNECTOR.SQC_VERSION to 64
   public static final String QUERY_UPGRADE_TABLE_SQ_CONNECTOR_MODIFY_COLUMN_SQC_VERSION_VARCHAR_64 =
     "ALTER TABLE " + TABLE_SQ_CONNECTOR + " ALTER COLUMN "
@@ -479,10 +478,81 @@ public final class DerbySchemaUpgradeQuery {
 
   // add unique constraint on the configurable table
   public static final String QUERY_UPGRADE_TABLE_SQ_CONFIGURABLE_ADD_UNIQUE_CONSTRAINT_NAME = "ALTER TABLE "
-      + TABLE_SQ_CONFIGURABLE
-      + " ADD CONSTRAINT "
+      + TABLE_SQ_CONFIGURABLE + " ADD CONSTRAINT "
       + CONSTRAINT_SQ_CONFIGURABLE_UNIQUE
       + " UNIQUE (" + COLUMN_SQC_NAME + ")";
+
+  // Add 1.99.3 constraints
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQF_SQC = "ALTER TABLE "
+      + TABLE_SQ_FORM + " ADD CONSTRAINT " + CONSTRAINT_SQF_SQC
+      + " FOREIGN KEY (" + COLUMN_SQF_CONNECTOR + ") REFERENCES "
+      + TABLE_SQ_CONNECTOR + " (" + COLUMN_SQC_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQI_SQF = "ALTER TABLE "
+      + TABLE_SQ_INPUT + " ADD CONSTRAINT " + CONSTRAINT_SQI_SQF
+      + " FOREIGN KEY (" + COLUMN_SQI_FORM + ") REFERENCES "
+      + TABLE_SQ_FORM + " (" + COLUMN_SQF_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQN_SQC = "ALTER TABLE "
+      + TABLE_SQ_CONNECTION + " ADD CONSTRAINT " + CONSTRAINT_SQN_SQC
+      + " FOREIGN KEY (" + COLUMN_SQN_CONNECTOR + ") REFERENCES "
+      + TABLE_SQ_CONNECTOR + " (" + COLUMN_SQC_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQB_SQN = "ALTER TABLE "
+      + TABLE_SQ_JOB + " ADD CONSTRAINT " + CONSTRAINT_SQB_SQN
+      + " FOREIGN KEY (" + COLUMN_SQB_CONNECTION + ") REFERENCES "
+      + TABLE_SQ_CONNECTION + " (" + COLUMN_SQN_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQNI_SQN = "ALTER TABLE "
+      + TABLE_SQ_CONNECTION_INPUT + " ADD CONSTRAINT " + CONSTRAINT_SQNI_SQN
+      + " FOREIGN KEY (" + COLUMN_SQNI_CONNECTION + ") REFERENCES "
+      + TABLE_SQ_CONNECTION + " (" + COLUMN_SQN_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQNI_SQI = "ALTER TABLE "
+      + TABLE_SQ_CONNECTION_INPUT + " ADD CONSTRAINT " + CONSTRAINT_SQNI_SQI
+      + " FOREIGN KEY (" + COLUMN_SQNI_INPUT + ") REFERENCES "
+      + TABLE_SQ_INPUT + " (" + COLUMN_SQI_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQBI_SQB = "ALTER TABLE "
+      + TABLE_SQ_JOB_INPUT + " ADD CONSTRAINT " + CONSTRAINT_SQBI_SQB
+      + " FOREIGN KEY (" + COLUMN_SQBI_JOB + ") REFERENCES "
+      + TABLE_SQ_JOB + " (" + COLUMN_SQB_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQBI_SQI = "ALTER TABLE "
+      + TABLE_SQ_JOB_INPUT + " ADD CONSTRAINT " + CONSTRAINT_SQBI_SQI
+      + " FOREIGN KEY (" + COLUMN_SQBI_INPUT + ") REFERENCES "
+      + TABLE_SQ_INPUT + " (" + COLUMN_SQI_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQS_SQB = "ALTER TABLE "
+      + TABLE_SQ_SUBMISSION + " ADD CONSTRAINT " + CONSTRAINT_SQS_SQB
+      + " FOREIGN KEY (" + COLUMN_SQS_JOB + ") REFERENCES "
+      + TABLE_SQ_JOB + " (" + COLUMN_SQB_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQRS_SQG = "ALTER TABLE "
+      + TABLE_SQ_COUNTER_SUBMISSION + " ADD CONSTRAINT " + CONSTRAINT_SQRS_SQG
+      + " FOREIGN KEY (" + COLUMN_SQRS_GROUP + ") REFERENCES "
+      + TABLE_SQ_COUNTER_GROUP + " (" + COLUMN_SQG_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQRS_SQR = "ALTER TABLE "
+      + TABLE_SQ_COUNTER_SUBMISSION + " ADD CONSTRAINT " + CONSTRAINT_SQRS_SQR
+      + " FOREIGN KEY (" + COLUMN_SQRS_COUNTER + ") REFERENCES "
+      + TABLE_SQ_COUNTER + " (" + COLUMN_SQR_ID + ")";
+
+  public static final String QUERY_UPGRADE_TABLE_SQ_FORM_ADD_CONSTRAINT_SQRS_SQS = "ALTER TABLE "
+      + TABLE_SQ_COUNTER_SUBMISSION + " ADD CONSTRAINT " + CONSTRAINT_SQRS_SQS
+      + " FOREIGN KEY (" + COLUMN_SQRS_SUBMISSION + ") REFERENCES "
+      + TABLE_SQ_SUBMISSION + " (" + COLUMN_SQS_ID + ") ON DELETE CASCADE";
+
+  public static final String getDropConstraintQuery(String schemaName, String tableName, String constraintName) {
+    StringBuilder queryBuilder = new StringBuilder();
+
+    queryBuilder.append("ALTER TABLE ");
+    queryBuilder.append(schemaName + "." + tableName);
+    queryBuilder.append(" DROP CONSTRAINT ");
+    queryBuilder.append(schemaName + "." + constraintName);
+
+    return queryBuilder.toString();
+  }
 
   private DerbySchemaUpgradeQuery() {
     // Disable explicit object creation

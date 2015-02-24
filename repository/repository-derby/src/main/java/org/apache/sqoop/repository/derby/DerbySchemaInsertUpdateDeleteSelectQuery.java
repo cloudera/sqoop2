@@ -642,6 +642,11 @@ public final class DerbySchemaInsertUpdateDeleteSelectQuery {
 
 
 
+  public static final String STMT_FETCH_TABLE_FOREIGN_KEYS
+      = "SELECT CONSTRAINTNAME FROM SYS.SYSCONSTRAINTS "
+      + "C LEFT JOIN SYS.SYSTABLES T ON C.TABLEID = T.TABLEID "
+      +  "WHERE C.TYPE = 'F' AND T.TABLENAME = ?";
+
   private DerbySchemaInsertUpdateDeleteSelectQuery() {
     // Disable explicit object creation
   }
