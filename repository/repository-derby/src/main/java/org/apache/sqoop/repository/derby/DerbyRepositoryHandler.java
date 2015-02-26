@@ -465,6 +465,13 @@ public class DerbyRepositoryHandler extends JdbcRepositoryHandler {
         updateDriverConfigInput(conn, driverId);
         LOG.info("Finished Updating config and inputs for the driver.");
       }
+
+      // Update generic jdbc connector
+      if (repositoryVersion > 0) {
+        DerbyUpgradeGenericJdbcConnectorConfigAndInputNames derbyUpgradeGenericJdbcConnectorConfigAndInputNames
+            = new DerbyUpgradeGenericJdbcConnectorConfigAndInputNames(this, conn);
+        derbyUpgradeGenericJdbcConnectorConfigAndInputNames.execute();
+      }
     }
 
     // last step upgrade the repository version to the latest value in the code
@@ -3070,7 +3077,7 @@ public class DerbyRepositoryHandler extends JdbcRepositoryHandler {
    *
    * @param stmts Statements to close
    */
-  private void closeStatements(Statement... stmts) {
+  public void closeStatements(Statement... stmts) {
     if(stmts == null) {
       return;
     }

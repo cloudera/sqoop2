@@ -554,6 +554,37 @@ public final class DerbySchemaUpgradeQuery {
     return queryBuilder.toString();
   }
 
+  // Update Generic Jdbc Connector configs
+
+  public static final String QUERY_UPDATE_TABLE_SQ_CONFIG_NAME =
+      "UPDATE " + TABLE_SQ_CONFIG
+          + " SET " + COLUMN_SQ_CFG_NAME + " = ?"
+          + " WHERE " + COLUMN_SQ_CFG_ID + " = ?";
+
+  public static final String QUERY_UPDATE_TABLE_SQ_INPUT_SQI_NAME =
+      "UPDATE " + TABLE_SQ_INPUT
+          + " SET " + COLUMN_SQI_NAME + " = ?"
+          + " WHERE " + COLUMN_SQI_NAME + " = ?"
+          + " AND " + COLUMN_SQI_CONFIG + " = ?";
+
+  public static final String QUERY_SELECT_CONFIG_ID_BY_NAME =
+      "SELECT " + COLUMN_SQ_CFG_ID
+          + " FROM " + TABLE_SQ_CONFIG
+          + " WHERE " + COLUMN_SQ_CFG_NAME + " = ?";
+
+  public static final String QUERY_SELECT_DIRECTION_CONFIG_BY_DIRECTION_NAME =
+      "SELECT " + COLUMN_SQ_CFG_DIR_CONFIG
+          + " FROM " + TABLE_SQ_CONFIG_DIRECTIONS
+          + " LEFT JOIN " + TABLE_SQ_DIRECTION
+            + " ON " + COLUMN_SQ_CFG_DIR_DIRECTION
+            + " = " + COLUMN_SQD_ID
+          + " WHERE " + COLUMN_SQD_NAME + " = ?";
+
+  public static final String QUERY_SELECT_CONFIG_ID_BY_NAME_AND_DIRECTION = QUERY_SELECT_CONFIG_ID_BY_NAME
+      + " AND " + COLUMN_SQ_CFG_ID + " IN ("
+        + QUERY_SELECT_DIRECTION_CONFIG_BY_DIRECTION_NAME
+      + ")";
+
   private DerbySchemaUpgradeQuery() {
     // Disable explicit object creation
   }
