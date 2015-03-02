@@ -159,11 +159,11 @@ limitations under the License.
     <jdbc.teradata.version>14.00.00.21</jdbc.teradata.version>
     <jdbc.netezza.version>6.0</jdbc.netezza.version>
     <joda.version>2.4</joda.version>
-    <kitesdk.version>0.17.0</kitesdk.version>
-    <slf4j.version>1.6.1</slf4j.version>
-    <zookeeper.version>3.4.6</zookeeper.version>
-    <kafka.version>0.8.1.1</kafka.version>
-    <avro.version>1.7.7</avro.version>
+    <kitesdk.version>${cdh.kite.version}</kitesdk.version>
+    <slf4j.version>${cdh.slf4j.version}</slf4j.version>
+    <zookeeper.version>${cdh.zookeeper.version}</zookeeper.version>
+    <kafka.version>${cdh.kafka.version}</kafka.version>
+    <avro.version>${cdh.avro.version}</avro.version>
     <jcommander.version>1.27</jcommander.version>
   </properties>
 
