@@ -169,10 +169,10 @@ public class JdbcRepository extends Repository {
           // monotonically increasing.
 
           // CDH-18073
-          if("1.99.3-cdh5.0.5-beta-2".equals(result.getVersion()) &&
+          if("1.99.3-cdh5.0.6-beta-2".equals(result.getVersion()) &&
               (
-               "1.99.3-cdh5.0.5".equals(mConnector.getVersion()) ||
-               "1.99.3-cdh5.0.5".equals(mConnector.getVersion())
+               "1.99.3-cdh5.0.6".equals(mConnector.getVersion()) ||
+               "1.99.3-cdh5.0.6".equals(mConnector.getVersion())
               )
             ) {
             if (autoUpgrade) {
