@@ -18,6 +18,7 @@
 package org.apache.sqoop.integration.connector.jdbc.generic;
 
 import com.google.common.collect.Iterables;
+import org.apache.sqoop.common.Direction;
 import org.apache.sqoop.common.test.db.DatabaseProvider;
 import org.apache.sqoop.common.test.db.DatabaseProviderFactory;
 import org.apache.sqoop.common.test.db.types.DatabaseType;
