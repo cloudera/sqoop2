@@ -24,12 +24,12 @@ limitations under the License.
   <parent>
     <groupId>org.apache.sqoop</groupId>
     <artifactId>connector</artifactId>
-    <version>1.99.4-cdh5.3.9-SNAPSHOT</version>
+    <version>1.99.4-cdh5.3.9</version>
   </parent>
 
   <groupId>org.apache.sqoop</groupId>
   <artifactId>connector-sdk</artifactId>
-  <version>1.99.4-cdh5.3.9-SNAPSHOT</version>
+  <version>1.99.4-cdh5.3.9</version>
   <name>Sqoop Connector SDK</name>
 
   <dependencies>
