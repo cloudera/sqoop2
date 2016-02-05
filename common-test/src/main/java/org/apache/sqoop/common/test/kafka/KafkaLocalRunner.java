@@ -56,7 +56,7 @@ public class KafkaLocalRunner extends KafkaRunnerBase {
           zkLocalPort);
 
       Properties kafkaProperties = getKafkaProperties();
-      kafkaConfig = new KafkaConfig(kafkaProperties);
+      kafkaConfig = new KafkaConfig(kafkaProperties, true);
 
       //start local kafka broker
       kafka = new KafkaServerStartable(kafkaConfig);
