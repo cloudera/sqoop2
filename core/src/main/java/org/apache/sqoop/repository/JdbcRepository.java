@@ -164,7 +164,7 @@ public class JdbcRepository extends Repository {
           return mConnector;
         } else {
           if (connectorResult.getUniqueName().equals(mConnector.getUniqueName()) &&
-            mConnector.getVersion().compareTo(connectorResult.getVersion()) > 0) {
+            versionIsNewer(mConnector.getVersion(), connectorResult.getVersion())) {
             if (autoUpgrade) {
               upgradeConnector(connectorResult, mConnector);
               return mConnector;
@@ -183,6 +183,20 @@ public class JdbcRepository extends Repository {
         }
       }
     });
+  }
+
+
+  // OPSAPS-32699
+  static boolean versionIsNewer(String newVersion, String oldVersion) {
+    for(int i = 1; i < 15; i++) {
+      if (oldVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{1}") && newVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{2}")) {
+        return true;
+      }
+      if (oldVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{2}") && newVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{1}")) {
+        return false;
+      }
+    }
+    return newVersion.compareTo(oldVersion) > 0;
   }
 
   /**

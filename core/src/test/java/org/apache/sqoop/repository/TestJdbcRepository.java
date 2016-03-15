@@ -17,6 +17,8 @@
  */
 package org.apache.sqoop.repository;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
@@ -100,6 +102,26 @@ public class TestJdbcRepository {
     doNothing().when(driverUpgraderMock).upgradeJobConfig(any(MDriverConfig.class),
         any(MDriverConfig.class));
 
+  }
+
+  // OPSAPS-32699
+  @Test
+  public void testVersionIsNewer() {
+    // Normal upstream versions
+    assertFalse(JdbcRepository.versionIsNewer("1.99.5", "1.99.6"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.6", "1.99.5"));
+
+    // CDH version - one digit
+    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.5", "1.99.5-cdh5.4.6"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.6", "1.99.5-cdh5.4.5"));
+
+    // CDH version - problematic jump
+    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.9", "1.99.5-cdh5.4.10"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.10", "1.99.5-cdh5.4.9"));
+
+    // CDH version - two digits
+    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.15", "1.99.5-cdh5.4.16"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.16", "1.99.5-cdh5.4.15"));
   }
 
   /**
