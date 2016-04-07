@@ -112,16 +112,16 @@ public class TestJdbcRepository {
     assertTrue(JdbcRepository.versionIsNewer("1.99.6", "1.99.5"));
 
     // CDH version - one digit
-    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.5", "1.99.5-cdh5.4.6"));
-    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.6", "1.99.5-cdh5.4.5"));
+    assertFalse(JdbcRepository.versionIsNewer("1.99.4-cdh5.4.5", "1.99.4-cdh5.4.6"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.4-cdh5.4.6", "1.99.4-cdh5.4.5"));
 
     // CDH version - problematic jump
-    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.9", "1.99.5-cdh5.4.10"));
-    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.10", "1.99.5-cdh5.4.9"));
+    assertFalse(JdbcRepository.versionIsNewer("1.99.4-cdh5.4.9", "1.99.4-cdh5.4.10"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.4-cdh5.4.10", "1.99.4-cdh5.4.9"));
 
     // CDH version - two digits
-    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.15", "1.99.5-cdh5.4.16"));
-    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.16", "1.99.5-cdh5.4.15"));
+    assertFalse(JdbcRepository.versionIsNewer("1.99.4-cdh5.4.15", "1.99.4-cdh5.4.16"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.4-cdh5.4.16", "1.99.4-cdh5.4.15"));
   }
 
   /**

@@ -189,10 +189,10 @@ public class JdbcRepository extends Repository {
   // OPSAPS-32699
   static boolean versionIsNewer(String newVersion, String oldVersion) {
     for(int i = 1; i < 15; i++) {
-      if (oldVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{1}") && newVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{2}")) {
+      if (oldVersion.matches("1\\.99\\.4-cdh5\\."+i+"\\.[0-9]{1}") && newVersion.matches("1\\.99\\.4-cdh5\\."+i+"\\.[0-9]{2}")) {
         return true;
       }
-      if (oldVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{2}") && newVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{1}")) {
+      if (oldVersion.matches("1\\.99\\.4-cdh5\\."+i+"\\.[0-9]{2}") && newVersion.matches("1\\.99\\.4-cdh5\\."+i+"\\.[0-9]{1}")) {
         return false;
       }
     }
