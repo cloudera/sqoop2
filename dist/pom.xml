@@ -160,7 +160,7 @@ limitations under the License.
                      </copy>
 
                     <!-- Build server directory -->
-                    <get src="http://archive.apache.org/dist/tomcat/tomcat-${tomcat.major.version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.tar.gz"
+                    <get src="http://archive.cloudera.com/tarballs/apache/tomcat/tomcat-${tomcat.major.version}/v${tomcat.version}/bin/apache-tomcat-${tomcat.version}.tar.gz"
                          dest="target/apache-tomcat.tar.gz" verbose="true" skipexisting="true"/>
                     <untar src="target/apache-tomcat.tar.gz" dest="target" compression="gzip"/>
                     <move file="target/apache-tomcat-${tomcat.version}" tofile="target/sqoop-${project.version}-bin-hadoop${hadoop.version}/server"/>
