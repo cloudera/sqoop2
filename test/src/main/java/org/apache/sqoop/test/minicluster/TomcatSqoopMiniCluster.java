@@ -73,7 +73,7 @@ public class TomcatSqoopMiniCluster extends SqoopMiniCluster {
 
     // TODO(jarcec): We should parametrize those paths, version, etc...
     // Source: http://cargo.codehaus.org/Functional+testing
-    Installer installer = new ZipURLInstaller(new URL("http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.36/bin/apache-tomcat-6.0.36.zip"));
+    Installer installer = new ZipURLInstaller(new URL("http://archive.cloudera.com/tarballs/apache/tomcat/tomcat-6/v6.0.44/bin/apache-tomcat-6.0.44.tar.gz"));
     installer.install();
 
     LocalConfiguration configuration = (LocalConfiguration) new DefaultConfigurationFactory().createConfiguration("tomcat6x", ContainerType.INSTALLED, ConfigurationType.STANDALONE);
