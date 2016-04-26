@@ -20,12 +20,12 @@ limitations under the License.
   <parent>
     <groupId>com.cloudera.cdh</groupId>
     <artifactId>cdh-root</artifactId>
-    <version>5.6.1-SNAPSHOT</version>  
+    <version>5.6.1</version>  
   </parent>
 
   <groupId>org.apache</groupId>
   <artifactId>sqoop</artifactId>
-  <version>1.99.5-cdh5.6.1-SNAPSHOT</version>
+  <version>1.99.5-cdh5.6.1</version>
   <description>Apache Sqoop</description>
   <name>Sqoop</name>
   <packaging>pom</packaging>
