@@ -188,17 +188,49 @@ public class JdbcRepository extends Repository {
   }
 
 
-  // OPSAPS-32699
+  // OPSAPS-32699, CDH-47793
   static boolean versionIsNewer(String newVersion, String oldVersion) {
-    for(int i = 1; i < 15; i++) {
-      if (oldVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{1}") && newVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{2}")) {
+    // First compare upstream versions
+    int upstreamVersionComparison = compareVersionComponents(newVersion.split("cdh")[0], oldVersion.split("cdh")[0]);
+
+    if (upstreamVersionComparison > 0) {
+      return true;
+    } else if (upstreamVersionComparison < 0) {
+      return false;
+    } else {
+      // Compare CDH versions
+      if (compareVersionComponents(newVersion.split("cdh")[1], oldVersion.split("cdh")[1]) > 0) {
         return true;
       }
-      if (oldVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{2}") && newVersion.matches("1\\.99\\.5-cdh5\\."+i+"\\.[0-9]{1}")) {
-        return false;
+
+      return false;
+    }
+  }
+
+  /**
+   * Compare two "." separated version strings
+   * 
+   * @param version1
+   * @param version2
+   * @return 0 if the versions are equal, 1 if version1 is newer than version2, -1 if version1 is older than version2
+   */
+  static int compareVersionComponents(String version1, String version2) {
+    String[] version1Components = version1.split("\\.");
+    String[] version2Components = version2.split("\\.");
+    int versionComponents = Math.min(version1Components.length, version2Components.length);
+    for (int i = 0; i < versionComponents; i++) {
+      // Split the cdh version by "." and cut off non numeric values at the end
+      int version1Component = Integer.valueOf(version1Components[i].split("[^0-9]")[0]);
+      int version2Component = Integer.valueOf(version2Components[i].split("[^0-9]")[0]);
+
+      if (version1Component > version2Component) {
+        return 1;
+      } else if (version1Component < version2Component) {
+        return -1;
       }
     }
-    return newVersion.compareTo(oldVersion) > 0;
+
+    return Integer.compare(version1Components.length, version2Components.length);
   }
 
   /**

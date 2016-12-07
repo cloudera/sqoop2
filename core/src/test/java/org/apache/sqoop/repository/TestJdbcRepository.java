@@ -105,7 +105,7 @@ public class TestJdbcRepository {
 
   }
 
-  // OPSAPS-32699
+  // OPSAPS-32699, CDH-47793
   @Test
   public void testVersionIsNewer() {
     // Normal upstream versions
@@ -120,9 +120,13 @@ public class TestJdbcRepository {
     assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.9", "1.99.5-cdh5.4.10"));
     assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.10", "1.99.5-cdh5.4.9"));
 
-    // CDH version - two digits
+    // CDH version - two digits in patch
     assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.15", "1.99.5-cdh5.4.16"));
     assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.16", "1.99.5-cdh5.4.15"));
+
+    // CDH version - two digits in minor
+    assertFalse(JdbcRepository.versionIsNewer("1.99.5-cdh5.4.5", "1.99.5-cdh5.10.4"));
+    assertTrue(JdbcRepository.versionIsNewer("1.99.5-cdh5.10.6", "1.99.5-cdh5.4.7"));
   }
 
   /**
