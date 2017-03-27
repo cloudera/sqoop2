@@ -24,7 +24,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.sqoop.common.SqoopException;
 import org.apache.sqoop.error.code.RepositoryError;
-import org.apache.sqoop.model.MConfig;
 import org.apache.sqoop.model.MConnector;
 import org.apache.sqoop.model.MDriver;
 import org.apache.sqoop.model.MJob;
@@ -34,9 +33,13 @@ import org.apache.sqoop.model.MSubmission;
 public class JdbcRepository extends Repository {
 
   private static final Logger LOG = Logger.getLogger(JdbcRepository.class);
+  public static final String CDH = "cdh";
+  public static final String SHOULD_SKIP_UPDATE_DEFAULT_VALUE = "true";
 
   private final JdbcRepositoryHandler handler;
   private final JdbcRepositoryContext repoContext;
+  /* TODO: this is a hack, we don't want to upgrade if version is newer than 5.5.0 as there was no new update after 5.5.0 */
+  private static final String LAST_UPDATE_VERSION ="1.99.5-cdh5.5.0";
 
   protected JdbcRepository(JdbcRepositoryHandler handler,
       JdbcRepositoryContext repoContext) {
@@ -165,6 +168,9 @@ public class JdbcRepository extends Repository {
           handler.registerConnector(mConnector, conn);
           return mConnector;
         } else {
+          if(shouldSkipUpdate(connectorResult.getVersion())){
+            return connectorResult;
+          }
           if (connectorResult.getUniqueName().equals(mConnector.getUniqueName()) &&
             versionIsNewer(mConnector.getVersion(), connectorResult.getVersion())) {
             if (autoUpgrade) {
@@ -187,19 +193,26 @@ public class JdbcRepository extends Repository {
     });
   }
 
+  static boolean shouldSkipUpdate(String currentVersion) {
+    boolean shouldSkipUpdate = Boolean.valueOf(System.getProperty("shouldSkipUpdate", SHOULD_SKIP_UPDATE_DEFAULT_VALUE));
+    return shouldSkipUpdate && versionIsNewer(currentVersion, LAST_UPDATE_VERSION);
+  }
 
   // OPSAPS-32699, CDH-47793
   static boolean versionIsNewer(String newVersion, String oldVersion) {
     // First compare upstream versions
-    int upstreamVersionComparison = compareVersionComponents(newVersion.split("cdh")[0], oldVersion.split("cdh")[0]);
+    int upstreamVersionComparison = compareVersionComponents(newVersion.split(CDH)[0], oldVersion.split(CDH)[0]);
 
     if (upstreamVersionComparison > 0) {
       return true;
     } else if (upstreamVersionComparison < 0) {
       return false;
     } else {
+      if(!newVersion.contains(CDH) || !oldVersion.contains(CDH)){
+        return false;
+      }
       // Compare CDH versions
-      if (compareVersionComponents(newVersion.split("cdh")[1], oldVersion.split("cdh")[1]) > 0) {
+      if (compareVersionComponents(newVersion.split(CDH)[1], oldVersion.split(CDH)[1]) > 0) {
         return true;
       }
 
