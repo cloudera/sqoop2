@@ -17,6 +17,8 @@
  */
 package org.apache.sqoop.repository;
 
+import static org.apache.sqoop.repository.JdbcRepository.shouldSkipUpdate;
+import static org.mockito.Mockito.never;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
@@ -177,6 +179,31 @@ public class TestJdbcRepository {
     }
 
     fail("Should throw out an exception with code: " + RepositoryError.JDBCREPO_0026);
+  }
+
+  /**
+   * Test the procedure when  the connector auto upgrade option is disabled, should skip upgrade
+   */
+  @Test
+  public void testConnectorDisableAutoUpgradeAndShouldSkipShouldNotThrow() {
+    MConnector newConnector = connector(1, "1.99.5-cdh5.8.1");
+    MConnector oldConnector = connector(1, "1.99.5-cdh5.5.1");
+
+    when(repoHandlerMock.findConnector(anyString(), any(Connection.class))).thenReturn(oldConnector);
+    repoSpy.registerConnector(newConnector, false);
+  }
+
+  /**
+   * Test the procedure when  the connector auto upgrade option is disabled, should skip upgrade
+   */
+  @Test
+  public void testConnectorAutoUpgradeAndShouldSkipShouldNotThrow() {
+    MConnector newConnector = connector(1, "1.99.5-cdh5.8.1");
+    MConnector oldConnector = connector(1, "1.99.5-cdh5.5.1");
+
+    when(repoHandlerMock.findConnector(anyString(), any(Connection.class))).thenReturn(oldConnector);
+    repoSpy.registerConnector(newConnector, true);
+    verify(repoSpy, never()).upgradeConnectorAndConfigs(any(MConnector.class), any(RepositoryTransaction.class));
   }
 
   /**
@@ -763,6 +790,28 @@ public class TestJdbcRepository {
     }
 
     fail("Should throw out an exception with message: " + exception.getMessage());
+  }
+
+  @Test
+  public void testShouldUpdateIfVersionBeforeLastUpdated(){
+    assertFalse(shouldSkipUpdate("1.99.5-cdh5.4.9"));
+    assertFalse(shouldSkipUpdate("1.99.4-cdh5.6.7"));
+    assertFalse(shouldSkipUpdate("1.99.4"));
+  }
+
+  @Test
+  public void testShouldUpdateIfShouldSkipUpdateIsFalse(){
+    System.setProperty("shouldSkipUpdate", "false");
+    assertFalse(shouldSkipUpdate("1.99.5-cdh5.4.1"));
+    assertFalse(shouldSkipUpdate("1.99.5-cdh5.10.7"));
+    assertFalse(shouldSkipUpdate("1.99.6"));
+  }
+
+  @Test
+  public void testShouldSkipUpdateIfVersionAfterLastUpdate(){
+    assertTrue(shouldSkipUpdate("1.99.5-cdh5.5.1"));
+    assertTrue(shouldSkipUpdate("1.99.6-cdh5.4.7"));
+    assertTrue(shouldSkipUpdate("1.99.6"));
   }
 
   private MConnector connector(long connectorId, String version) {
