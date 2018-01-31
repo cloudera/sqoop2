@@ -153,7 +153,7 @@ limitations under the License.
     <tomcat.minor.version>${cdh.tomcat.minor.version}</tomcat.minor.version>
     <tomcat.version>${tomcat.major.version}.${tomcat.minor.version}</tomcat.version>
     <jdbc.mysql.version>5.1.23</jdbc.mysql.version>
-    <jdbc.postgresql.version>9.1-901.jdbc4</jdbc.postgresql.version>
+    <jdbc.postgresql.version>42.1.4.jre7</jdbc.postgresql.version>
     <jdbc.oracle.version>11.2.0.3</jdbc.oracle.version>
     <jdbc.sqlserver.version>4.0</jdbc.sqlserver.version>
     <jdbc.teradata.version>14.00.00.21</jdbc.teradata.version>
@@ -514,7 +514,7 @@ limitations under the License.
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>postgresql</groupId>
+        <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>${jdbc.postgresql.version}</version>
       </dependency>
