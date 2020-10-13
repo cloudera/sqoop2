@@ -141,7 +141,7 @@ limitations under the License.
     <hadoop.2.version>${cdh.hadoop.version}</hadoop.2.version>
     <guava.version>11.0.2</guava.version>
     <json-simple.version>1.1</json-simple.version>
-    <junit.version>4.9</junit.version>
+    <junit.version>4.13.1</junit.version>
     <log4j.version>1.2.16</log4j.version>
     <servlet.version>2.5</servlet.version>
   </properties>
