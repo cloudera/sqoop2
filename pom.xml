@@ -136,7 +136,7 @@ limitations under the License.
     <maven.compile.target>1.6</maven.compile.target>
     <commons-dbcp.version>1.4</commons-dbcp.version>
     <commons-lang.version>2.5</commons-lang.version>
-    <derby.version>10.8.2.2</derby.version>
+    <derby.version>10.14.2.0</derby.version>
     <hadoop.1.version>1.0.3</hadoop.1.version>
     <hadoop.2.version>${cdh.hadoop.version}</hadoop.2.version>
     <guava.version>11.0.2</guava.version>
